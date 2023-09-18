@@ -5,13 +5,15 @@ GigaChatModel for GigaChat.
 import json
 import logging
 import os
-from typing import Any, Dict, Iterator, List, Optional, Tuple, Union, AsyncIterator
+from typing import Any, AsyncIterator, Dict, Iterator, List, Optional, Tuple, Union
 
 import requests
 from tenacity import retry, retry_if_not_exception_type, stop_after_attempt
 
-from langchain.callbacks.manager import CallbackManagerForLLMRun, \
-    AsyncCallbackManagerForLLMRun
+from langchain.callbacks.manager import (
+    AsyncCallbackManagerForLLMRun,
+    CallbackManagerForLLMRun,
+)
 from langchain.chat_models.base import BaseChatModel
 from langchain.schema import ChatResult
 from langchain.schema.messages import (
@@ -35,7 +37,7 @@ def parse_stream_helper(line: bytes) -> Optional[str]:
             # and it will close http connection with TCP Reset
             return None
         if line.startswith(b"data: "):
-            line = line[len(b"data: "):]
+            line = line[len(b"data: ") :]
             return line.decode("utf-8")
         else:
             return None
@@ -86,15 +88,22 @@ class GigaChat(BaseChatModel):
     censor_finish_reason: List[str] = ["request_censor", "request_blacklist"]
     """ Check certificates for all rrequests """
 
-    async def _agenerate(self, messages: List[BaseMessage],
-                         stop: Optional[List[str]] = None,
-                         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-                         **kwargs: Any) -> ChatResult:
+    async def _agenerate(
+        self,
+        messages: List[BaseMessage],
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+        **kwargs: Any,
+    ) -> ChatResult:
         pass
 
-    def _astream(self, messages: List[BaseMessage], stop: Optional[List[str]] = None,
-                 run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
-                 **kwargs: Any) -> AsyncIterator[ChatGenerationChunk]:
+    def _astream(
+        self,
+        messages: List[BaseMessage],
+        stop: Optional[List[str]] = None,
+        run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
+        **kwargs: Any,
+    ) -> AsyncIterator[ChatGenerationChunk]:
         pass
 
     verify_tsl: bool = True
@@ -225,7 +234,7 @@ class GigaChat(BaseChatModel):
             json=payload,
             timeout=600,
             verify=self.verify_tsl,
-            stream=self.streaming
+            stream=self.streaming,
         )
         if not response.ok:
             if self.verbose:
@@ -237,9 +246,13 @@ class GigaChat(BaseChatModel):
             raise ValueError(
                 f"Can't get response from GigaChat. Error code: {response.status_code}"
             )
-        if self.streaming and "text/event-stream" in response.headers.get("Content-Type", ""):
-            return (self.transform_output(json.loads(line), stream=True)
-                    for line in parse_stream(response.iter_lines()))
+        if self.streaming and "text/event-stream" in response.headers.get(
+            "Content-Type", ""
+        ):
+            return (
+                self.transform_output(json.loads(line), stream=True)
+                for line in parse_stream(response.iter_lines())
+            )
         return self.transform_output(response.json())
 
     @retry(
