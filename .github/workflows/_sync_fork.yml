@@ -17,11 +17,11 @@ jobs:
       - name: Sync with upstream
         id: sync
         run: |
-          git remote add origin https://github.com/ai-forever/gigachain.git
           git remote add upstream https://github.com/langchain-ai/langchain.git
-          git checkout origin/feature/sync-fork-with-upstream
+          git fetch origin
+          git checkout feature/sync-fork-with-upstream
           git merge -Xours upstream/master
-          git push origin origin/feature/sync-fork-with-upstream
+          git push origin feature/sync-fork-with-upstream
 
       - name: Timestamp
         run: date
