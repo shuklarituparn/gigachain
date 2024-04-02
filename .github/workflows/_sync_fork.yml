@@ -21,7 +21,7 @@ jobs:
           git fetch upstream
           git checkout origin/feature/sync-fork-with-upstream
           git merge -Xours upstream/master
-          git push origin feature/sync-fork-with-upstream
+          git push origin origin/feature/sync-fork-with-upstream
 
       - name: Timestamp
         run: date
