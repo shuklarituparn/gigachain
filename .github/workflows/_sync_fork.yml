@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Sync with upstream
         id: sync
         run: |
           git remote add upstream https://github.com/langchain-ai/langchain.git
-          git checkout feature/sync-fork-with-upstream
           git fetch upstream
+          git checkout feature/sync-fork-with-upstream
           git merge -Xours upstream/master
           git push origin feature/sync-fork-with-upstream
 
