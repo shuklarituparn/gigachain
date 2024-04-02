@@ -18,8 +18,8 @@ jobs:
         id: sync
         run: |
           git remote add upstream https://github.com/langchain-ai/langchain.git
-          git fetch origin
           git checkout feature/sync-fork-with-upstream
+          git fetch upstream
           git merge -Xours upstream/master
           git push origin feature/sync-fork-with-upstream
 
