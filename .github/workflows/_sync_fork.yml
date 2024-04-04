@@ -21,9 +21,8 @@ jobs:
         run: |
           git remote add upstream https://github.com/langchain-ai/langchain.git
           git fetch upstream
-          git checkout feature/sync-fork-with-upstream
           git merge -Xtheirs upstream/master
-          git push origin feature/sync-fork-with-upstream
+          git push origin feature/sync-fork-with-upstream -f
 
       - name: Timestamp
         run: date
