@@ -16,6 +16,12 @@ jobs:
         with:
           ref: 'feature/sync-fork-with-upstream'
 
+      - name: Set up Git
+        run: |
+          git config user.email "paha.kashkarov@gmail.com"
+          git config user.name "GitHub Actions"
+
+
       - name: Sync with upstream
         id: sync
         run: |
