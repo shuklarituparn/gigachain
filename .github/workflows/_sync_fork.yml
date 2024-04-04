@@ -14,7 +14,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
         with:
-          ref: 'feature/sync-fork-with-upstream'
+          ref: 'dev'
 
       - name: Set up Git
         run: |
@@ -25,10 +25,11 @@ jobs:
       - name: Sync with upstream
         id: sync
         run: |
+          git checkout -b feature/sync-fork-with-upstream
           git remote add upstream https://github.com/langchain-ai/langchain.git
           git fetch upstream
-          git merge --allow-unrelated-histories -Xtheirs upstream/master
-          git push origin feature/sync-fork-with-upstream -f
+          git merge -Xtheirs upstream/master
+          git push -u origin feature/sync-fork-with-upstream
 
       - name: Timestamp
         run: date
