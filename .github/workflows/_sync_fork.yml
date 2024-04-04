@@ -21,7 +21,7 @@ jobs:
         run: |
           git remote add upstream https://github.com/langchain-ai/langchain.git
           git fetch upstream
-          git merge -Xtheirs upstream/master
+          git merge --allow-unrelated-histories -Xtheirs upstream/master
           git push origin feature/sync-fork-with-upstream -f
 
       - name: Timestamp
