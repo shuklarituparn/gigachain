@@ -15,5 +15,5 @@ if [ ! -f "$toml_file" ]; then
     exit 1
 fi
 
-# Use sed to replace "Langchain" with "Gigachain" in lines starting with 'name='
+# Use sed to replace "Langchain" with "Gigachain" in lines
 sed -i -E '/packages = \[/,/^\s*\]/! s/langchain/gigachain/' "$toml_file"
