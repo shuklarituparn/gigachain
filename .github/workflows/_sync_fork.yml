@@ -43,6 +43,7 @@ jobs:
           base: dev
           branch: feature/sync-fork-with-upstream
           title: Sync fork with upstream changes
+          draft: true
           body: Automatically syncing fork repository with upstream changes
 
       - name: Timestamp
