@@ -22,19 +22,19 @@ jobs:
           git config user.name "GitHub Actions"
 
 
-      - name: Sync with upstream
-        id: sync
-        shell: bash
-        run: |
-          git remote add upstream https://github.com/langchain-ai/langchain.git
-          git fetch upstream
-          git checkout -b feature/sync-fork-with-upstream
-          git merge -Xtheirs upstream/master
-          echo change naming from lingchain to gigachain
-          chmod +x ./scripts/fix_naming.sh
-          ./scripts/fix_naming.sh ./pyproject.toml
-          echo push changes to feature branch
-          git push -u origin feature/sync-fork-with-upstream
+#      - name: Sync with upstream
+#        id: sync
+#        shell: bash
+#        run: |
+#          git remote add upstream https://github.com/langchain-ai/langchain.git
+#          git fetch upstream
+#          git checkout -b feature/sync-fork-with-upstream
+#          git merge -Xtheirs upstream/master
+#          echo change naming from lingchain to gigachain
+#          chmod +x ./scripts/fix_naming.sh
+#          ./scripts/fix_naming.sh ./pyproject.toml
+#          echo push changes to feature branch
+#          git push -u origin feature/sync-fork-with-upstream
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
