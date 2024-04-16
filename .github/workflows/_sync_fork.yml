@@ -32,9 +32,18 @@ jobs:
           git merge -Xtheirs upstream/master
           echo change naming from lingchain to gigachain
           chmod +x ./scripts/fix_naming.sh
-          ./scripts/fix_naming.sh <path-to-toml-file>
+          ./scripts/fix_naming.sh ./pyproject.toml
           echo push changes to feature branch
           git push -u origin feature/sync-fork-with-upstream
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: dev
+          branch: feature/sync-fork-with-upstream
+          title: Sync fork with upstream changes
+          body: Automatically syncing fork repository with upstream changes
 
       - name: Timestamp
         run: date
