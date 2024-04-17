@@ -28,14 +28,17 @@ jobs:
           git fetch upstream
 
       - name: Merge changes from upstream
-        run: git merge -Xtheirs upstream/master --allow-unrelated-histories
+        run: git merge -Xtheirs upstream/master
         continue-on-error: true
 
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
-          chmod +x scripts/fix_naming.sh
-          scripts/fix_naming.sh pyproject.toml
+          pwd
+          ls -la
+
+#          chmod +x scripts/fix_naming.sh
+#          scripts/fix_naming.sh pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
