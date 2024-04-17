@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "Handle merge conflicts, if any"
           chmod +x scripts/fix_naming.sh
-          scripts/fix_naming.sh ./pyproject.toml
+          scripts/fix_naming.sh pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
