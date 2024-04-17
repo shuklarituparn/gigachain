@@ -31,8 +31,8 @@ jobs:
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
-          chmod +x ./scripts/fix_naming.sh
-          ./scripts/fix_naming.sh ./pyproject.toml
+          chmod +x scripts/fix_naming.sh
+          scripts/fix_naming.sh ./pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
