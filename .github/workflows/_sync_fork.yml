@@ -28,7 +28,7 @@ jobs:
           git fetch upstream
 
       - name: Merge changes from upstream
-        run: git merge -Xtheirs upstream/master
+        run: git merge -Xtheirs upstream/master --allow-unrelated-histories
         continue-on-error: true
 
       - name: Resolve merge conflicts (if any)
