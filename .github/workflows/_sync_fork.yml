@@ -24,7 +24,6 @@ jobs:
 
       - name: Fetch upstream changes
         run: |
-          git branch
           git remote add upstream https://github.com/langchain-ai/langchain.git
           git fetch upstream
 
@@ -35,8 +34,9 @@ jobs:
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
-          chmod +x .github/scripts/fix_naming.sh
-          .github/scripts/fix_naming.sh pyproject.toml
+          ls -la .github/scripts/
+#          chmod +x .github/scripts/fix_naming.sh
+#          .github/scripts/fix_naming.sh pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
