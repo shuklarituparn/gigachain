@@ -34,8 +34,8 @@ jobs:
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
-          chmod +x .github/scripts/fix_naming.sh
-          .github/scripts/fix_naming.sh pyproject.toml
+          chmod +x ~/.github/scripts/fix_naming.sh
+          ~/.github/scripts/fix_naming.sh pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
