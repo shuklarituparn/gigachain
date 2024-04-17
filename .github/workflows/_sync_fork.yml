@@ -19,7 +19,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
         with:
-          ref: dev
+          ref: ${{ github.event.pull_request.head.ref }}
           persist-credentials: false
 
       - name: Fetch upstream changes
@@ -35,8 +35,8 @@ jobs:
         run: |
           echo "Handle merge conflicts, if any"
           ls -la .github/scripts/
-#          chmod +x .github/scripts/fix_naming.sh
-#          .github/scripts/fix_naming.sh pyproject.toml
+          chmod +x .github/scripts/fix_naming.sh
+          .github/scripts/fix_naming.sh pyproject.toml
 
 #      - name: Sync with upstream
 #        id: sync
