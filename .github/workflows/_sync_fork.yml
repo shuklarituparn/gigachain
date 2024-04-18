@@ -34,6 +34,7 @@ jobs:
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
+          git config --list
           ls -la .github/scripts/
           chmod +x .github/scripts/fix_naming.sh
           .github/scripts/fix_naming.sh pyproject.toml
