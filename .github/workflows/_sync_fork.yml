@@ -44,6 +44,9 @@ jobs:
           echo "Handle merge conflicts, if any"
           chmod +x .github/scripts/fix_naming.sh
           .github/scripts/fix_naming.sh pyproject.toml
+          git add -A
+          git commit -m "sync test"
+          git push -u origin ${{ github.event.pull_request.head.ref }}
 
 #      - name: Sync with upstream
 #        id: sync
@@ -58,15 +61,15 @@ jobs:
 #          echo push changes to feature branch
 #          git push -u origin feature/sync-fork
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: dev
-          branch: "auto-pr-branch"
-          title: Sync fork with upstream changes
-          draft: true
-          body: Automatically syncing fork repository with upstream changes
+#      - name: Create pull request
+#        uses: peter-evans/create-pull-request@v3
+#        with:
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          base: dev
+#          branch: "auto-pr-branch"
+#          title: Sync fork with upstream changes
+#          draft: true
+#          body: Automatically syncing fork repository with upstream changes
 
       - name: Timestamp
         run: date
