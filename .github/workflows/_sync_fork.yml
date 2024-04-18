@@ -22,12 +22,15 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           persist-credentials: false
 
+      - name: Set up Git config
+        run: |
+          git config --global user.email ${{ github.event.pusher.email }}
+          git config --global user.name ${{ github.actor }}
+
       - name: Fetch upstream changes
         run: |
           git remote add upstream https://github.com/langchain-ai/langchain.git
           git fetch upstream
-          git config --global user.email "paha.kashkarov@gmail.com"
-          git config --global user.name "Pavel Kashkarov"
 
       - name: Merge changes from upstream
         run: git merge -Xtheirs --allow-unrelated-histories upstream/master
