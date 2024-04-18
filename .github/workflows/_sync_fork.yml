@@ -27,8 +27,8 @@ jobs:
 
       - name: Set up Git config
         run: |
-          git config --global user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-          git config --global user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
+          git config --local user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+          git config --local user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
 
       - name: Fetch upstream changes
         run: |
