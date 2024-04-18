@@ -22,10 +22,13 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           persist-credentials: false
 
+      - name: Extract git data
+        uses: rlespinasse/git-commit-data-action@v1.x
+
       - name: Set up Git config
         run: |
-          git config --global user.email ${{ github.event.pusher.email }}
-          git config --global user.name ${{ github.actor }}
+          git config --global user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+          git config --global user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
 
       - name: Fetch upstream changes
         run: |
@@ -39,8 +42,6 @@ jobs:
       - name: Resolve merge conflicts (if any)
         run: |
           echo "Handle merge conflicts, if any"
-          git config --list
-          ls -la .github/scripts/
           chmod +x .github/scripts/fix_naming.sh
           .github/scripts/fix_naming.sh pyproject.toml
 
@@ -62,7 +63,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: dev
-          branch: ${{ github.event.pull_request.head.ref }}
+          branch: "auto-pr-branch"
           title: Sync fork with upstream changes
           draft: true
           body: Automatically syncing fork repository with upstream changes
