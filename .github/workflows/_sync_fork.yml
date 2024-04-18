@@ -44,7 +44,6 @@ jobs:
           echo "Handle merge conflicts, if any"
           chmod +x .github/scripts/fix_naming.sh
           .github/scripts/fix_naming.sh pyproject.toml
-          git remote -v
           git push -u origin ${{ github.event.pull_request.head.ref }}
 
 #      - name: Sync with upstream
