@@ -27,8 +27,8 @@ jobs:
 
       - name: Set up Git config
         run: |
-          git config --local user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-          git config --local user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
+          git config --global user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+          git config --global user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
 
       - name: Fetch upstream changes
         run: |
@@ -46,6 +46,7 @@ jobs:
           .github/scripts/fix_naming.sh pyproject.toml
           git add -A
           git commit -m "sync test"
+          git remote set-url origin https://github.com/ai-forever/gigachain.git
           git push -u origin ${{ github.event.pull_request.head.ref }}
 
 #      - name: Sync with upstream
