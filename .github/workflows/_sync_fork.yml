@@ -6,9 +6,6 @@ on:
     types: [opened]
     branches:
       - dev
-  push:
-    branches:
-      - feature/*
 
   workflow_dispatch:
 
