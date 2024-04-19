@@ -9,7 +9,7 @@ on:
       - dev
   push:
     branches:
-      - feature/sync-fork-with-upstream
+      - dev-tmp
 
 jobs:
   sync:
