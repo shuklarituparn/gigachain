@@ -9,7 +9,7 @@ on:
       - dev
   push:
     branches:
-      - dev-tmp
+      - feature/sync-fork-with-upstream
 
 jobs:
   sync:
@@ -47,7 +47,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
-          base: dev-tmp
+          base: feature/sync-fork-with-upstream
           branch: "auto-pr-branch"
           title: Sync fork with upstream changes
           draft: true
