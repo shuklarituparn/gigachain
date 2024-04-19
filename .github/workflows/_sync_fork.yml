@@ -54,6 +54,3 @@ jobs:
         if: ${{ failure() }}
         run: |
           echo "Can be some problems with personal access token. Check its validity."
-
-      - name: Timestamp
-        run: date
