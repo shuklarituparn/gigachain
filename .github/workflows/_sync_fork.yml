@@ -24,7 +24,7 @@ jobs:
 
       - name: Set up Git config
         run: |
-          git config --global user.email "no-reply@no-reply.com"
+          git config --global user.email "github_actions@no-reply.com"
           git config --global user.name "Github actions"
 
       - name: Fetch upstream changes
