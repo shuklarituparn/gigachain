@@ -1,5 +1,5 @@
-name: Sync fork repo with upstream
-run-name: Sync fork by @${{ github.actor }}
+name: Sync with upstream
+run-name: Sync by @${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -45,7 +45,7 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
           base: dev
           branch: "auto-pr-branch"
-          title: Sync fork with upstream changes
+          title: Sync with upstream changes
           draft: true
           body: Automatically syncing fork repository with upstream changes
         continue-on-error: true
@@ -53,4 +53,4 @@ jobs:
       - name: Echo on error
         if: failure()
         run: |
-          echo "Can be some problems with personal access token. Check its validity."
+          echo "Can be some problems with WORKFLOW_TOKEN. It is located in repository secrets(vaild for 90 days). Regenerate it or put there new personal access token."
