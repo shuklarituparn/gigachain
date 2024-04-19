@@ -22,9 +22,6 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
           ref: feature/sync-fork-with-upstream
 
-#      - name: Extract git data
-#        uses: rlespinasse/git-commit-data-action@v1.x
-
       - name: Set up Git config
         run: |
           git config --global user.email "no-reply@no-reply.com"
@@ -37,13 +34,12 @@ jobs:
 
       - name: Merge changes from upstream
         run: git merge -Xtheirs --allow-unrelated-histories upstream/master
-        continue-on-error: true
 
       - name: Fix naming occurred during merge
         run: |
           echo "Fix naming occurred during merge"
-          chmod +x .github/scripts/fix_naming.sh
-          .github/scripts/fix_naming.sh
+          chmod +x .github/scripts/fix_gigachain_naming.sh
+          .github/scripts/fix_gigachain_naming.sh
           git add -A
           git commit -m "fix naming"
 
@@ -57,6 +53,12 @@ jobs:
           title: Sync fork with upstream changes
           draft: true
           body: Automatically syncing fork repository with upstream changes
+        continue-on-error: true
+
+      - name: Custom Error Message
+        if: ${{ failure() }}
+        run: |
+          echo "Can be some problems with personal access token. Check its validity."
 
       - name: Timestamp
         run: date
