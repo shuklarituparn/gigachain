@@ -2,15 +2,15 @@ name: Sync fork repo with upstream
 run-name: Sync fork by @${{ github.actor }}
 
 on:
-  pull_request:
-    types: [opened]
-    branches:
-      - dev
-  push:
-    branches:
-      - feature/sync-fork-with-upstream
-
   workflow_dispatch:
+#  pull_request:
+#    types: [opened]
+#    branches:
+#      - dev
+#  push:
+#    branches:
+#      - feature/sync-fork-with-upstream
+
 
 jobs:
   sync:
@@ -22,13 +22,13 @@ jobs:
           token: ${{ secrets.WORKFLOW_TOKEN }}
           ref: feature/sync-fork-with-upstream
 
-      - name: Extract git data
-        uses: rlespinasse/git-commit-data-action@v1.x
+#      - name: Extract git data
+#        uses: rlespinasse/git-commit-data-action@v1.x
 
       - name: Set up Git config
         run: |
-          git config --global user.email ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-          git config --global user.name ${{ env.GIT_COMMIT_AUTHOR_NAME }}
+          git config --global user.email "no-reply@no-reply.com"
+          git config --global user.name "Github actions"
 
       - name: Fetch upstream changes
         run: |
@@ -39,24 +39,14 @@ jobs:
         run: git merge -Xtheirs --allow-unrelated-histories upstream/master
         continue-on-error: true
 
-      - name: Resolve merge conflicts (if any)
+      - name: Fix naming occurred during merge
         run: |
           echo "Handle merge conflicts, if any"
           chmod +x .github/scripts/fix_naming.sh
           .github/scripts/fix_naming.sh pyproject.toml
+          git add -A
+          git commit -m "fix naming"
 
-#      - name: Sync with upstream
-#        id: sync
-#        shell: bash
-#        run: |
-#          git remote add upstream https://github.com/langchain-ai/langchain.git
-#          git fetch upstream
-#          git checkout -b feature/sync-fork
-#          git merge -Xtheirs upstream/master
-#          echo change naming from lingchain to gigachain
-#
-#          echo push changes to feature branch
-#          git push -u origin feature/sync-fork
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
