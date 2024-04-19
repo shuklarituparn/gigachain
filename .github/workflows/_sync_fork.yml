@@ -51,6 +51,6 @@ jobs:
         continue-on-error: true
 
       - name: Echo on error
-        if: ${{ failure() }}
+        if: failure()
         run: |
           echo "Can be some problems with personal access token. Check its validity."
