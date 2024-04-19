@@ -11,7 +11,6 @@ on:
     branches:
       - feature/sync-fork-with-upstream
 
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -48,7 +47,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
-          base: feature/sync-fork-with-upstream
+          base: dev-tmp
           branch: "auto-pr-branch"
           title: Sync fork with upstream changes
           draft: true
