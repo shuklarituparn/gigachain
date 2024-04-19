@@ -3,13 +3,13 @@ run-name: Sync fork by @${{ github.actor }}
 
 on:
   workflow_dispatch:
-#  pull_request:
-#    types: [opened]
-#    branches:
-#      - dev
-#  push:
-#    branches:
-#      - feature/sync-fork-with-upstream
+  pull_request:
+    types: [opened]
+    branches:
+      - dev
+  push:
+    branches:
+      - feature/sync-fork-with-upstream
 
 
 jobs:
@@ -41,9 +41,9 @@ jobs:
 
       - name: Fix naming occurred during merge
         run: |
-          echo "Handle merge conflicts, if any"
+          echo "Fix naming occurred during merge"
           chmod +x .github/scripts/fix_naming.sh
-          .github/scripts/fix_naming.sh pyproject.toml
+          .github/scripts/fix_naming.sh
           git add -A
           git commit -m "fix naming"
 
