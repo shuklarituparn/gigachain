@@ -1,11 +1,7 @@
 name: Sync with upstream
 run-name: Sync by @${{ github.actor }}
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - dev
+on: workflow_dispatch
 
 jobs:
   sync:
@@ -28,7 +24,7 @@ jobs:
           git fetch upstream
 
       - name: Merge changes from upstream
-        run: git merge -Xtheirs --allow-unrelated-histories upstream/master
+        run: git merge -Xours --allow-unrelated-histories upstream/master
 
       - name: Fix gigachain naming
         run: |
